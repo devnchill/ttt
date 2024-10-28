@@ -14,6 +14,7 @@ function displayBoard() {
   let arr3 = gameBoard.board.slice(6, 9).join(" ");
   console.log(arr3);
 }
+
 const user1 = (function () {
   let user1Name = "a";
   let user1Turn = true;
@@ -35,6 +36,7 @@ const user2 = (function () {
   };
   return userInfo;
 })();
+
 function gameFlow() {
   displayBoard();
   if (user1.turn == true) {
@@ -63,11 +65,13 @@ function gameFlow() {
     }
   }
 }
+
 function possibleInput() {
   let options = gameBoard.board.filter((item) => {
     return item != "markedByA" && item != "markedByB";
   });
   return options;
 }
+
 //console.log(possibleInput());
 gameFlow();
