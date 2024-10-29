@@ -25,13 +25,39 @@ const user = function (userName, userTurn) {
 const user1 = user("a", true);
 const user2 = user("b", false);
 
-function gameFlow() {
+(function gameFlow() {
   displayBoard();
-}
+})();
 
 function possibleInput() {
   let options = gameBoard.board.filter((item) => {
     return item !== "markedByA" && item !== "markedByB";
   });
   return options;
+}
+
+function takeInputs() {
+  user1.input = 2;
+  user2.input = 5;
+}
+
+function validateInput() {
+  switch (user1.turn) {
+    case true:
+      if (possibleInput().includes(user1.input)) {
+        gameBoard.board[user1.input] = "markedByA";
+        user1.turn = false;
+        user2.turn = true;
+      }
+      break;
+    case false:
+      if (possibleInput().includes(user2.input)) {
+        gameBoard.board[user2.input] = "markedByA";
+        user2.turn = false;
+        user1.turn = true;
+      }
+    default:
+      console.log("Neither worked inside validateInput");
+      break;
+  }
 }
