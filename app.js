@@ -27,6 +27,10 @@ const user2 = user("b", false);
 
 (function gameFlow() {
   displayBoard();
+  takeInputs();
+  validateInput();
+  validateInput();
+  displayBoard();
 })();
 
 function possibleInput() {
@@ -42,6 +46,10 @@ function takeInputs() {
 }
 
 function validateInput() {
+  console.log("this is user1's turn ");
+  console.log(user1.turn);
+  console.log("this is user2 turn");
+  console.log(user2.turn);
   switch (user1.turn) {
     case true:
       if (possibleInput().includes(user1.input)) {
@@ -52,12 +60,13 @@ function validateInput() {
       break;
     case false:
       if (possibleInput().includes(user2.input)) {
-        gameBoard.board[user2.input] = "markedByA";
+        gameBoard.board[user2.input] = "markedByB";
         user2.turn = false;
         user1.turn = true;
       }
     default:
-      console.log("Neither worked inside validateInput");
+      console.log(user1.turn);
+      console.log("Neither worked inside validateInput function");
       break;
   }
 }
