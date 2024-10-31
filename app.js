@@ -27,6 +27,7 @@ const user = function (userName, userTurn) {
     name: userName,
     turn: userTurn,
     input: null,
+    score: score,
   };
   return userInfo;
 };
@@ -118,6 +119,7 @@ function checkWin() {
       gameBoard.board[b] === gameBoard.board[c]
     ) {
       console.log(`Player ${gameBoard.board[a]} wins!`);
+      gameBoard.board[a] === X ? user1.score++ : user2.score++;
       gameOver = true;
       return true;
     }
