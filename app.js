@@ -1,17 +1,22 @@
 "use strict";
 
+//iife to create a board and some functions reltaed to it
 const gameBoard = (function () {
   const board = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return {
+    //will return board
     getBoard: () => board,
+    //will take all the elements of board except the one which has X and O
     getOptions: () => board.filter((cell) => cell !== "X" && cell !== "O"),
+    //this will change the board and mark the element at that specific index with X or O depending on which user is doing it
     makeMove: (index, symbol) => {
       board[index] = symbol;
     },
   };
 })();
 
+//iife which will return a ff for creating user
 const playerFactory = (function () {
   return function (userName, userTurn) {
     return {
@@ -23,6 +28,7 @@ const playerFactory = (function () {
   };
 })();
 
+//this function will split the board into 3 arrays and display it such that it looks like a board , will remove it as it's just for console testing purpose
 function displayBoard() {
   const arr1 = gameBoard.getBoard().slice(0, 3).join(" ");
   const arr2 = gameBoard.getBoard().slice(3, 6).join(" ");
@@ -30,7 +36,7 @@ function displayBoard() {
   console.log(`${arr1}\n${arr2}\n${arr3}`);
 }
 
-// IIFE to handle the game flow
+// IIFE to handle the game flow this is what i'm concerned about coz allmost all iife are created inside of it so not sure if this is the right approach or not
 const gameFlow = (function () {
   let gameOver = false;
   let moveIndex = 0;
@@ -52,11 +58,13 @@ const gameFlow = (function () {
     };
   })();
 
+  //will check if the input entered by the user is possible like preoccupied or not and if it's possible change the board array with the user input
   const validateInput = (function () {
     return function () {
       const currentUser = user1.turn ? user1 : user2;
       if (gameBoard.getOptions().includes(currentUser.input)) {
         gameBoard.makeMove(currentUser.input - 1, user1.turn ? "X" : "O");
+        //changing the turn of both values (if true then make it false and vice versa)
         user1.turn = !user1.turn;
         user2.turn = !user2.turn;
       } else {
@@ -80,6 +88,7 @@ const gameFlow = (function () {
         [0, 4, 8],
         [2, 4, 6], // Diagonals
       ];
+      //take each array of array winningCombinations and deconstruct them to a,b,c and finally match it with board
       for (const combo of winningCombinations) {
         const [a, b, c] = combo;
         if (
