@@ -47,6 +47,7 @@ const gameFlow = (function () {
   // Separate each task into its own IIFE
   const takeInputs = (function () {
     return function () {
+      //here test input is an array , so i'm basically using it for testing purpose , i'll remove it , moveIndex helps to change the user input automatically
       if (moveIndex >= testInputs.length) {
         console.log("All test inputs have been used. Ending the game.");
         gameOver = true;
@@ -123,3 +124,8 @@ const gameFlow = (function () {
   // Start the game
   play();
 })();
+
+const domBoard = {
+  //this function will display the content of board array on webpage
+  renderBoard: () => {},
+};
