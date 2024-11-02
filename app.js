@@ -3,7 +3,6 @@
 //iife to create a board and some functions reltaed to it
 const gameBoard = (function () {
   const board = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
   return {
     //will return board
     getBoard: () => board,
@@ -15,6 +14,30 @@ const gameBoard = (function () {
     },
   };
 })();
+
+const domBoard = {
+  renderBoard: function () {
+    const CELL = document.querySelectorAll(".cell");
+    const arrayBoard = gameBoard.getBoard();
+    CELL.forEach((element, index) => {
+      element.textContent = isNaN(arrayBoard[index]) ? arrayBoard[index] : "";
+    });
+  },
+
+  addCellListeners: function () {
+    const CELLS = document.querySelectorAll(".cell");
+    CELLS.forEach((cell, index) => {
+      cell.addEventListener("click", () => {
+        if (!gameFlow.isGameOver()) {
+          // Ensure the game hasn't ended
+          gameFlow.takeInputs(index + 1); // Pass cell number as input
+          domBoard.renderBoard(); // Re-render the board to update it visually
+        }
+      });
+    });
+  },
+};
+domBoard.addCellListeners();
 
 //iife which will return a ff for creating user
 const playerFactory = (function () {
@@ -124,8 +147,3 @@ const gameFlow = (function () {
   // Start the game
   play();
 })();
-
-const domBoard = {
-  //this function will display the content of board array on webpage
-  renderBoard: () => {},
-};
