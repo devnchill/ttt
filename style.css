@@ -84,6 +84,32 @@ body {
   display: grid;
   grid-template-rows: auto 1fr 100px;
 }
+dialog {
+  background-color: var(--dark-bg);
+  border: 2px solid var(--neon-blue);
+  color: var(--neon-pink);
+  border-radius: 30px;
+  height: 200px;
+  width: 500px;
+  position: relative;
+  top: 38%;
+  left: 37%;
+}
+form {
+  height: 100%;
+  width: 100%;
+}
+form > ul {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 20px;
+}
+#submit {
+  margin: auto;
+}
+form ul li {
+  list-style: none;
+}
 header {
   font-family: "Rubik", Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
