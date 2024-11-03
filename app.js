@@ -1,11 +1,20 @@
+//3 IIFE
+//  gameBoard
+//  domBoard
+//  gameFlow
 const gameBoard = (() => {
+  //creating an array with 9 elements where each cell is null
   const board = Array(9).fill(null); // Empty 9-cell board
 
+  //will return the array
   const getBoard = () => board;
+  //will change the element at the index of the array
   const updateCell = (index, symbol) => {
     board[index] = symbol;
   };
+  //will return true if element at index which is passed at argument is null
   const isCellEmpty = (index) => board[index] === null;
+  //make every element of array null
   const resetBoard = () => board.fill(null); // Resets board for a new game
 
   return { getBoard, updateCell, isCellEmpty, resetBoard };
@@ -15,7 +24,9 @@ const Player = (name, symbol) => {
   return { name, symbol, score: 0 }; // factory function for creating user
 };
 
+//2nd iife made it to work with ui related stuff
 const domBoard = (() => {
+  //will take board from html, take array board and display the element's of array into their respective cell
   const renderBoard = () => {
     const cells = document.querySelectorAll(".cell");
     const board = gameBoard.getBoard();
@@ -35,7 +46,7 @@ const domBoard = (() => {
   };
 
   const popForm = () => {
-    const dialog = document.querySelector("dialog");
+    const dialog = document.querySelector("#form-dialog");
     const submitButton = document.querySelector("#submitButton");
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -50,18 +61,46 @@ const domBoard = (() => {
         gameFlow.initializePlayers(names.name1, names.name2); // Initialize players with names
         dialog.close();
       } else {
-        alert("Please enter names for both players!");
+        console.log("going with default names");
+        gameFlow.initializePlayers("Player 1", "Player 2"); // Initialize players with names
+        dialog.close();
       }
     });
   };
 
+  //Will take value of input form user in name field
   const extractNames = () => {
     let name1 = document.querySelector("#one").value;
     let name2 = document.querySelector("#two").value;
     return { name1, name2 };
   };
 
-  return { extractNames, popForm, renderBoard, addCellListeners };
+  //will popup once game ends
+  const celebrate = (playerName = "") => {
+    const celebrationDialog = document.getElementById("celebration-dialog");
+    const pWinning = document.getElementById("celebration-message");
+    if (gameBoard.getBoard().every((cell) => cell !== null)) {
+      pWinning.textContent = `Both Players Played Perfectly so You Both Win!!`;
+    } else {
+      pWinning.textContent = ` ${playerName} wins !!`;
+    }
+    celebrationDialog.showModal();
+    const closeButton = document.getElementById("close-celebration");
+    closeButton.addEventListener("click", () => celebrationDialog.close());
+  };
+
+  const restart = () => {
+    const restartButton = document.querySelector("#restart");
+    restartButton.addEventListener("click", () => gameFlow.resetGame());
+  };
+  return {
+    celebrate,
+    extractNames,
+    popForm,
+    renderBoard,
+    addCellListeners,
+    restart,
+  };
 })();
 
 const gameFlow = (() => {
@@ -112,9 +151,11 @@ const gameFlow = (() => {
     if (checkWin()) {
       console.log(`${currentPlayer.name} wins!`);
       gameOver = true;
+      domBoard.celebrate(currentPlayer.name);
     } else if (gameBoard.getBoard().every((cell) => cell !== null)) {
       console.log("It's a draw!");
       gameOver = true;
+      domBoard.celebrate();
     } else {
       switchPlayer();
     }
@@ -132,3 +173,4 @@ const gameFlow = (() => {
 
 // Initialize game
 domBoard.popForm();
+domBoard.restart();

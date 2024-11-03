@@ -84,14 +84,14 @@ body {
   display: grid;
   grid-template-rows: auto 1fr 100px;
 }
-dialog {
+#form-dialog {
   background-color: var(--dark-bg);
   border: 2px solid var(--neon-blue);
   color: var(--neon-pink);
   border-radius: 30px;
   height: 200px;
   width: 500px;
-  position: relative;
+  position: absolute;
   top: 38%;
   left: 37%;
 }
@@ -129,6 +129,8 @@ main {
   grid-gap: 5px;
 }
 .cell {
+  color: var(--neon-blue);
+  font-weight: 800;
   width: 120px;
   height: 120px;
   border: 1px solid #d3d3d3;
@@ -162,4 +164,26 @@ footer {
 #restart:hover {
   background-color: var(--dark-bg);
   color: var(--neon-blue);
+}
+#celebration-dialog {
+  /*display: grid;*/
+  /*grid-template-rows: auto auto auto;*/
+  background-color: var(--dark-bg);
+  border: 2px solid var(--neon-blue);
+  color: var(--neon-pink);
+  border-radius: 30px;
+  height: 200px;
+  width: 500px;
+  position: absolute;
+  top: 38%;
+  left: 37%;
+}
+#celebration-dialog > * {
+  text-align: center;
+}
+#celebration-dialog > p {
+  font-size: 1.5rem;
+}
+#close-celebration {
+  margin-top: 1.5rem;
 }

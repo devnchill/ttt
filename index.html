@@ -15,7 +15,7 @@
       <h1>Tic Tac Toe</h1>
     </header>
     <main>
-      <dialog>
+      <dialog id="form-dialog">
         <form action="#">
           <ul>
             <li>
@@ -43,6 +43,13 @@
         <div class="cell" data-value="8"></div>
         <div class="cell" data-value="9"></div>
       </div>
+      <dialog id="celebration-dialog">
+        <h2>Congratulations!</h2>
+        <p id="celebration-message"></p>
+        <div class="button">
+          <button id="close-celebration">Close</button>
+        </div>
+      </dialog>
     </main>
     <footer>
       <input type="button" name="restart" id="restart" value="restart" />
