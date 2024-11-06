@@ -85,6 +85,9 @@ const domBoard = (() => {
       pWinning.textContent = ` ${playerName} wins !!`;
     }
     celebrationDialog.showModal();
+    setTimeout(() => {
+      window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+    }, 2000); // Adjust the delay as needed
     const closeButton = document.getElementById("close-celebration");
     closeButton.addEventListener("click", () => celebrationDialog.close());
   };
